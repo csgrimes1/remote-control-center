@@ -1,0 +1,22 @@
+{
+  "name": "remote-control-center",
+  "version": "1.0.0",
+  "description": "AV Remote Control Web Service and UI",
+  "main": "index.js",
+  "scripts": {
+    "start": "docker/start-local.sh tvr-run npx nodemon src/index"
+  },
+  "author": "Chris Grimes",
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.5.1",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "wave-collapse": "^1.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.1"
+  }
+}
