@@ -1,5 +1,4 @@
-'use strict'
 
 module.exports = function ping(req, res) {
-    res.send({status: 'ok'})
+    res.send({ status: 'ok' })
 }

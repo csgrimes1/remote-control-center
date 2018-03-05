@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <title>Remote Control</title>
+        <link rel="stylesheet" href="css/layouts.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div id="container">
+        </div>
+    </body>
+    <script>
+        fetch('/v1/list-devices')
+            .then(response => response.json())
+            .then(body => {
+                const elAdd = document.createElement('ul')
+                Object.values(body).forEach(device => {
+                    const elItem = document.createElement('li')
+                    const elLink = document.createElement('a')
+                    elLink.innerText = device.name
+                    elLink.setAttribute('href', device.pageUrl)
+                    elItem.insertAdjacentElement('beforeEnd', elLink)
+                    elAdd.insertAdjacentElement('beforeEnd', elItem)
+                    return true
+                })
+                document.getElementById('container').insertAdjacentElement('beforeEnd', elAdd)
+            })
+    </script>
+</html>

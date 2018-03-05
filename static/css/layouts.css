@@ -1,8 +1,11 @@
 .container {
     display: grid;
     grid-gap: 5px;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+button {
+    min-height: 32px;
 }
 
 .vertical-group {
@@ -13,11 +16,11 @@
 
 .three-col {
     border: 1px solid silver;
-    padding: 5px 3px 5px 3px;
+    padding: 3px 3px 3px 3px;
     grid-gap: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    max-width: 150px;
+    max-width: 170px;
 }
 
 .two-col {
@@ -26,7 +29,7 @@
     grid-gap: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    max-width: 150px;
+    max-width: 170px;
 }
 
 .three-col div, .two-col div {

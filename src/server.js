@@ -15,7 +15,10 @@ module.exports = async function start(port) {
     app.get('/foo', require('./endpoints/ping')) //eslint-disable-line
     app.get('/ping', require('./endpoints/ping')) //eslint-disable-line
     app.get('/v1/sendButtonCommands', require('./endpoints/v1/send-button-commands')) //eslint-disable-line
-    app.use('/static', express.static(path.resolve(__dirname, '../static')))
+    app.get('/v1/list-devices', require('./endpoints/v1/list-devices')) //eslint-disable-line
+
+    const options = { index: 'devices.html' }
+    app.use('/', express.static(path.resolve(__dirname, '../static'), options))
 
     return new Promise((resolve, reject) => {
         app.listen(port, (err, result) => {

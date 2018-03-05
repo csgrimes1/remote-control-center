@@ -1,51 +1,54 @@
-'use strict'
-
 const path = require('path')
-const arpScript = path.resolve(__dirname, '../../bin/scan.sh')
 const childProcess = require('child_process')
 const providers = require('../providers')
+const logger = require('../logger').create(module)
+const waveCollapse = require('wave-collapse').defaultApi
 
-async function testAddrForProvider (addr) {
-    console.log('checking IP', addr)
-    for(const provider of providers) {
-        try {
-            const device = await provider.forIp(addr)
-            if (device)
-                return device
-        } catch (err) {
-            console.warn(`${provider.providerName}(${addr}) --> `, err.message)
-        }
+const arpScript = path.resolve(__dirname, '../../bin/scan.sh')
+
+async function safeForIp(provider, addr) {
+    try {
+        return await provider.forIp(addr)
+    } catch (err) {
+        logger.warn(`TEST of ${provider.providerName}(${addr}) --> `, err.message)
+        return null
     }
 }
 
-let devices = null;
+function testAddrForProvider(addr) {
+    return waveCollapse.iterateOver(providers.map(p => safeForIp(p, addr)))
+        .skipWhile(x => !x)
+        .take(1)
+        .reduce((accum, current) => accum || current)
+}
+
+let devices = null
 
 function load() {
     const output = childProcess.execFileSync(arpScript).toString()
-    const candidates = output.split('\n')
+    const testIps = output.split('\n')
         .filter(addr => addr)
         .map(testAddrForProvider)
-    return Promise.all(candidates)
-        .then(candidates => {
-            const asObjects = candidates.filter(x => x)
-                .map(device => ({[device.ipAddress]: device}))
+    return Promise.all(testIps)
+        .then((results) => {
+            const asObjects = results.filter(x => x)
+                .map(device => ({ [device.ipAddress]: device }))
             return Object.assign({}, ...asObjects)
         })
-        .catch(x => {
-            console.error(x)
+        .catch((x) => {
+            logger.error(x)
             return {}
         })
 }
 
-module.exports = async function scan (refresh = false) {
-    if (refresh || !devices)
-    {
+module.exports = async function scan(refresh = false) {
+    if (refresh || !devices) {
         try {
             devices = await load()
         } catch (x) {
             devices = {}
         }
-        console.log('scan result:', `${Object.keys(devices).length} device(s) found.`)
+        logger.log('scan result:', `${Object.keys(devices).length} device(s) found.`)
     }
     return devices
 }

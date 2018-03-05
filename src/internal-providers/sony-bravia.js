@@ -14,15 +14,13 @@ class SonyBraviaController {
         const deviceInfo = interfaceInfo.result[0]
         this.name = `SONY ${deviceInfo.productName} ${deviceInfo.modelName} at ${ipAddress}`
         this.authPin = '0000'
+        this.pageUrl = `/bravia-remote.html?deviceIp=${ipAddress}`
 
         const unmatched = '*NOMATCH*'
         const matches = Object.keys(cm1)
             .map(cmd => ({ [commonCommands.match(cmd) || unmatched]: cm1[cmd] }))
             .filter(pair => pair[unmatched] === undefined)
         const matchedCommon = Object.assign({}, ...matches)
-
-        const strays = Object.keys(cm1)
-            .filter(name => !commonCommands.match(name))
 
         this.commandMap = {
             ...cm1,
@@ -31,7 +29,7 @@ class SonyBraviaController {
             fastForward: cm1.Forward,
             previous: cm1.Previous,
         }
-        logger.log('strays:', matchedCommon, strays)
+        logger.debug('Bravia set found!')
     }
 
     send(commands) {
@@ -68,12 +66,23 @@ module.exports = {
             resolveWithFullResponse: false,
             json: true,
             method: 'POST',
-            body: { method: 'getRemoteControllerInfo',params: [], id: 10, version: '1.0' },
+            timeout: 1500,
+            body: {
+                method: 'getRemoteControllerInfo',
+                params: [],
+                id: 10,
+                version: '1.0',
+            },
         }
         const commands = await request(params)
         const params2 = {
             ...params,
-            body: { method: 'getInterfaceInformation', params: [], id: 2, version: '1.0' },
+            body: {
+                method: 'getInterfaceInformation',
+                params: [],
+                id: 2,
+                version: '1.0',
+            },
         }
         const interfaceInfo = await request(params2)
         return new SonyBraviaController(ipAddress, commands, interfaceInfo)
