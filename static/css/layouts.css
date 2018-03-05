@@ -1,0 +1,34 @@
+.container {
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat(3, 100px);
+}
+
+.vertical-group {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 5px;
+}
+
+.three-col {
+    border: 1px solid silver;
+    padding: 5px 3px 5px 3px;
+    grid-gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    max-width: 150px;
+}
+
+.two-col {
+    border: 1px solid silver;
+    padding: 5px 3px 5px 3px;
+    grid-gap: 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 150px;
+}
+
+.three-col div, .two-col div {
+    text-align: center;
+}

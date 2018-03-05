@@ -1,0 +1,101 @@
+<html>
+    <head>
+        <title>Remote Control</title>
+        <link rel="stylesheet" href="css/layouts.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="vertical-group">
+                <div class="three-col">
+                    <div><button command="input" title="Input"><i class="material-icons">input</i></button></div>
+                    <div><button command="wakeUp" title="Wake"><i class="material-icons">radio_button_checked</i></button></div>
+                    <div><button command="sleep" title="Sleep"><i class="material-icons">radio_button_unchecked</i></button></div>
+                </div>
+                <div class="three-col">
+                    <div><button>1</button></div>
+                    <div><button>2</button></div>
+                    <div><button>3</button></div>
+                    <div><button>4</button></div>
+                    <div><button>5</button></div>
+                    <div><button>6</button></div>
+                    <div><button>7</button></div>
+                    <div><button>8</button></div>
+                    <div><button>9</button></div>
+                    <div></div>
+                    <div><button>0</button></div>
+                    <div></div>
+                </div>
+                <div class="three-col">
+                    <div><button command="rewind" title="Rewind"><i class="material-icons">fast_rewind</i></button></div>
+                    <div><button command="play" title="Play"><i class="material-icons">play_arrow</i></button></div>
+                    <div><button command="fastForward" title="Fast Forward"><i class="material-icons">fast_forward</i></button></div>                    
+                    <div><button command="prev" title="Skip previous"><i class="material-icons">skip_previous</i></button></div>
+                    <div><button command="pause" title="Pause"><i class="material-icons">pause</i></button></div>
+                    <div><button command="next" title="Skip next"><i class="material-icons">skip_next</i></button></div>
+                    <div></div>
+                    <div><button command="stop" title="Stop"><i class="material-icons">stop</i></button></div>
+                    <div></div>                 
+                </div>
+            </div>
+            <div class="vertical-group">
+                <div class="three-col">
+                    <div><button command="return" title="Back"><i class="material-icons">reply</i></button></div>
+                    <div><button command="PopUpMenu" title="discover"><i class="material-icons">lightbulb_outline</i></button></div>
+                    <div><button command="home" title="Home"><i class="material-icons">home</i></button></div>
+                </div>
+                <div class="three-col">
+                    <div></div>
+                    <div><button command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
+                    <div></div>
+                    <div><button command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
+                    <div><button command="ok"><i class="material-icons">mouse</i></button></div>
+                    <div><button command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
+                    <div></div>
+                    <div><button command="cursorDown"><i class="material-icons">arrow_downward</i></button></div>
+                    <div></div>
+                </div>
+                <div class="three-col">
+                    <div><button command="volumeUp"><i class="material-icons">add</i></button></div>
+                    <div><button command="Jump" title="Jump"><i class="material-icons">file_upload</i></button></div>
+                    <div><button command="channelUp"><i class="material-icons">add</i></button></div>
+                    <div>VOL</div>
+                    <div></div>
+                    <div>CHAN</div>
+                    <div><button command="volumeDown"><i class="material-icons">remove</i></button></div>
+                    <div><button command="mute" title="Mute"><i class="material-icons">volume_off</i></button></div>
+                    <div><button command="channelDown"><i class="material-icons">remove</i></button></div>
+                </div>
+            </div>
+            <div class="vertical-group">
+                <div class="two-col">
+                    <div><button command="hdmi1">HDMI1</button></div>
+                    <div><button command="hdmi2">HDMI2</button></div>
+                    <div><button command="hdmi3">HDMI3</button></div>
+                    <div><button command="hdmi4">HDMI4</button></div>
+                    <div><button command="component1" title="Component 1">Comp1</button></div>
+                    <div><button command="component2" title="Component 2">Comp2</button></div>
+                    <div><button command="video1">Video1</button></div>
+                    <div><button command="video2">Video2</button></div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const elements = document.getElementsByTagName('button')
+        const query = (new URL(document.location)).searchParams;
+        const deviceIp = query.get('deviceIp')
+        const sendCommands = cmd => {
+            const url = `/v1/sendButtonCommands?deviceIp=${deviceIp}&commands=${encodeURIComponent(cmd)}`
+            fetch(url)
+        }
+
+        for(let i=0; i<elements.length; i++) {
+            const element = elements.item(i)
+            const text = element.getAttribute('command') || element.innerText
+            element.onclick = () => sendCommands(text)
+            //console.log(text, deviceIp)
+        }
+    </script>
+</html>

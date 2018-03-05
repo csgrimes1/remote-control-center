@@ -1,6 +1,7 @@
 'use strict'
 
 const buttonDispatcher = require('../../devices/button-dispatcher')
+const logger = require('../../logger').create(module)
 
 async function sendButtonCommands(req, res) {
     try {
@@ -9,10 +10,11 @@ async function sendButtonCommands(req, res) {
         await buttonDispatcher(req.query.deviceIp, commands)
         res.send('sent')
     } catch (x) {
-        res.status(400).send(x.toString())
+        logger.warn(x.message)
+        res.status(400).send(x.message)
     }
 }
 
-module.exports = function (req, res) {
+module.exports = function sendButtonCommandsHandler(req, res) {
     return sendButtonCommands(req, res)
 }
