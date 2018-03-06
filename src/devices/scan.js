@@ -27,9 +27,9 @@ let devices = null
 function hardCodedIps() {
     const file = '/etc/remote-control-center/iplist.json'
     try {
-        return require('file')
+        return require(file)
     } catch (err) {
-        logger.log(`Hard coded IPs not found at [${file}].`)
+        logger.log(`Hard coded IPs not found at [${file}]: ${err.message}`)
         return []
     }
 }
