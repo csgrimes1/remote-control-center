@@ -10,7 +10,7 @@ async function safeForIp(provider, addr) {
     try {
         return await provider.forIp(addr)
     } catch (err) {
-        logger.warn(`TEST of ${provider.providerName}(${addr}) --> `, err.message)
+        // logger.warn(`TEST of ${provider.providerName}(${addr}) --> `, err.message)
         return null
     }
 }
@@ -26,9 +26,11 @@ function testAddrForProvider(addr) {
 let devices = null
 
 function hardCodedIps() {
-    const file = '/etc/remote-control-center/iplist.json'
+    const file = `${process.env.HOME}/.remote-control-center/iplist.json`
     try {
-        return require(file)
+        const ips = require(file) // eslint-disable-line
+        logger.log(`Hard coded IPs ${ips} added to scan.`)
+        return ips
     } catch (err) {
         logger.log(`Hard coded IPs not found at [${file}]: ${err.message}`)
         return []
@@ -39,8 +41,8 @@ function load() {
     const output = childProcess.execFileSync(arpScript).toString()
     const testIps = new Set(output.split('\n')
         .filter(addr => addr)
-        .map(testAddrForProvider)
-        .concat(hardCodedIps()))
+        .concat(hardCodedIps())
+        .map(testAddrForProvider))
     return Promise.all(testIps)
         .then((results) => {
             const asObjects = results.filter(x => x)

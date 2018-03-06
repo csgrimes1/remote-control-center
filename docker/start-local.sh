@@ -15,6 +15,7 @@ CONTAINERNAME=$1
 shift
 docker run \
   -v "$PROJECTDIR:/usr/app" \
+  -v "$HOME/.remote-control-center:/root/.remote-control-center" \
   --net=host \
   --rm -it --name "$CONTAINERNAME" "$IMAGENAME" \
   bin/start.sh "$@"
