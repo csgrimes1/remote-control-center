@@ -8,19 +8,23 @@ const arpScript = path.resolve(__dirname, '../../bin/scan.sh')
 
 async function safeForIp(provider, addr) {
     try {
-        return await provider.forIp(addr)
+        const device = await provider.forIp(addr)
+        // console.log('device found', device)
+        return device
     } catch (err) {
         // logger.warn(`TEST of ${provider.providerName}(${addr}) --> `, err.message)
         return null
     }
 }
 
-function testAddrForProvider(addr) {
+async function testAddrForProvider(addr) {
     logger.log(`Testing IP ${addr}.`)
-    return waveCollapse.iterateOver(providers.map(p => safeForIp(p, addr)))
+    const result = await waveCollapse.iterateOver(providers.map(p => safeForIp(p, addr)))
         .skipWhile(x => !x)
-        .take(1)
-        .reduce((accum, current) => accum || current)
+        .reduce(waveCollapse.toArray)
+        .then(ar => ar[0])
+
+    return result
 }
 
 let devices = null
@@ -39,10 +43,10 @@ function hardCodedIps() {
 
 function load() {
     const output = childProcess.execFileSync(arpScript).toString()
-    const testIps = new Set(output.split('\n')
+    const uniqueIps = new Set(output.split('\n')
         .filter(addr => addr)
-        .concat(hardCodedIps())
-        .map(testAddrForProvider))
+        .concat(hardCodedIps()))
+    const testIps = Array.from(uniqueIps).map(testAddrForProvider)
     return Promise.all(testIps)
         .then((results) => {
             const asObjects = results.filter(x => x)
@@ -62,7 +66,10 @@ module.exports = async function scan(refresh = false) {
         } catch (x) {
             devices = {}
         }
-        logger.log('scan result:', `${Object.keys(devices).length} device(s) found.`)
+        logger.log('scan result:',
+            `${Object.keys(devices).length} device(s) found.`,
+            Object.values(devices).map(d => d.name),
+        )
     }
     return devices
 }
