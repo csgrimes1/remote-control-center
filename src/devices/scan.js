@@ -24,11 +24,22 @@ function testAddrForProvider(addr) {
 
 let devices = null
 
+function hardCodedIps() {
+    const file = '/etc/remote-control-center/iplist.json'
+    try {
+        return require('file')
+    } catch (err) {
+        logger.log(`Hard coded IPs not found at [${file}].`)
+        return []
+    }
+}
+
 function load() {
     const output = childProcess.execFileSync(arpScript).toString()
     const testIps = output.split('\n')
         .filter(addr => addr)
         .map(testAddrForProvider)
+        .concat(hardCodedIps())
     return Promise.all(testIps)
         .then((results) => {
             const asObjects = results.filter(x => x)
