@@ -6,8 +6,8 @@ const logger = require('../logger').create(module)
 // the great examples of how to CURL the Bravia API!
 class SonyBraviaController {
     constructor(ipAddress, commandMap, interfaceInfo) {
-        const inspect = obj => require('util').inspect(obj, { depth: 4 })
-        logger.log(`Sony info: ${inspect(commandMap)}\n${inspect(interfaceInfo)}`)
+        // const inspect = obj => require('util').inspect(obj, { depth: 4 })
+        // logger.log(`Sony info: ${inspect(commandMap)}\n${inspect(interfaceInfo)}`)
         this.ipAddress = ipAddress
         const commandDefs = commandMap.result[1]
             .map(def => ({ [def.name]: def.value }))

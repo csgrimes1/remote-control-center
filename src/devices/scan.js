@@ -16,6 +16,7 @@ async function safeForIp(provider, addr) {
 }
 
 function testAddrForProvider(addr) {
+    logger.log(`Testing IP ${addr}.`)
     return waveCollapse.iterateOver(providers.map(p => safeForIp(p, addr)))
         .skipWhile(x => !x)
         .take(1)
@@ -36,10 +37,10 @@ function hardCodedIps() {
 
 function load() {
     const output = childProcess.execFileSync(arpScript).toString()
-    const testIps = output.split('\n')
+    const testIps = new Set(output.split('\n')
         .filter(addr => addr)
         .map(testAddrForProvider)
-        .concat(hardCodedIps())
+        .concat(hardCodedIps()))
     return Promise.all(testIps)
         .then((results) => {
             const asObjects = results.filter(x => x)
