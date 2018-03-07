@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "docker/build.sh",
+    "docker-push": "docker push csgrimes1/remote-service:1.0",
     "lint": "docker/start-local.sh tvr-run npx eslint src test",
     "start": "docker/start-local.sh tvr-run npx nodemon src/index",
     "test": "docker/start-local.sh tvr-run npx mocha --recursive test"

@@ -11,7 +11,15 @@
             }
 
             div.three-col {
-                max-width: 200px;
+                max-width: 350px;
+                grid-gap: 20px;
+            }
+
+            button {
+                max-width: 60px;
+                min-width: 60px;
+                min-height: 48px;
+                max-height: 48px;
             }
 
         </style>
@@ -36,8 +44,8 @@
                     <div></div><div></div><div></div>
                     <div><button command="rewind" title="Rewind"><i class="material-icons">fast_rewind</i></button></div>
                     <div><button command="play" title="Play">
-                        <i style="position: relative; left: -12px;" class="material-icons">play_arrow</i>
-                        <i style="position: relative; left: 11px; top: -36px;" class="material-icons">pause</i>
+                        <i style="position: relative; left: -12px; top: 3px;" class="material-icons">play_arrow</i>
+                        <i style="position: relative; left: 11px; top: -33px;" class="material-icons">pause</i>
                     </button></div>
                     <div><button command="fastForward" title="Fast Forward"><i class="material-icons">fast_forward</i></button></div>                    
                 </div>
