@@ -3,7 +3,7 @@
     grid-gap: 5px;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
     margin: auto;
-    max-width: 500px;
+    max-width: 550px;
 }
 
 button {
@@ -22,8 +22,6 @@ button {
     grid-gap: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    max-width: 170px;
-    margin: auto;
 }
 
 .two-col {
@@ -32,10 +30,36 @@ button {
     grid-gap: 5px;
     display: grid;
     grid-template-columns: 1fr 1fr;
+}
+
+div.three-col, div.two-col{
     max-width: 170px;
+    min-width: 170px;
+    text-align: center;
     margin: auto;
 }
 
-.three-col div, .two-col div {
+.three-col div {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+button {
+    max-height: 42px;
+    min-height: 42px;
+    max-width: 50px;
+    min-width: 50px;
+    overflow: hidden;
     text-align: center;
+}
+
+.two-col button {
+    min-width: 64px;
+    max-width: 64px;
+}
+
+.inactive {
+    border-color: transparent;
+    color: inherit;
+    background-color: transparent;
 }
