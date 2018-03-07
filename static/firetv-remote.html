@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>Remote Control</title>
+        <link rel="stylesheet" href="css/layouts.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+            rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <div class="container">
+            <div class="vertical-group">
+                <div class="three-col">
+                    <div></div>
+                    <div><button command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
+                    <div></div>
+                    <div><button command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
+                    <div><button command="ok"><i class="material-icons">mouse</i></button></div>
+                    <div><button command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
+                    <div></div>
+                    <div><button command="cursorDown"><i class="material-icons">arrow_downward</i></button></div>
+                    <div></div>
+                    <div></div><div></div><div></div>
+                    <div><button command="return" title="Back"><i class="material-icons">reply</i></button></div>
+                    <div><button command="home" title="Home"><i class="material-icons">home</i></button></div>
+                    <div><button command="menu" title="Menu"><i class="material-icons">menu</i></button></div>
+                    <div></div><div></div><div></div>
+                    <div><button command="rewind" title="Rewind">&lt;&lt;</button></div>
+                    <div><button command="play" title="Play">&gt; ||</button></div>
+                    <div><button command="fastForward" title="Fast Forward">&gt;&gt;</button></div>                    
+                </div>
+            </div>
+        </div>
+    </body>
+    <script>
+        const elements = document.getElementsByTagName('button')
+        const query = (new URL(document.location)).searchParams;
+        const deviceIp = query.get('deviceIp')
+        const sendCommands = cmd => {
+            const url = `/v1/sendButtonCommands?deviceIp=${deviceIp}&commands=${encodeURIComponent(cmd)}`
+            fetch(url)
+        }
+
+        for(let i=0; i<elements.length; i++) {
+            const element = elements.item(i)
+            const text = element.getAttribute('command') || element.innerText
+            element.onclick = () => sendCommands(text)
+            //console.log(text, deviceIp)
+        }
+    </script>
+</html>

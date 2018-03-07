@@ -66,7 +66,8 @@ module.exports = async function scan(refresh = false) {
         } catch (x) {
             devices = {}
         }
-        logger.log('scan result:',
+        logger.log(
+            'scan result:',
             `${Object.keys(devices).length} device(s) found.`,
             Object.values(devices).map(d => d.name),
         )
