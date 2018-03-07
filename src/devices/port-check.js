@@ -2,7 +2,7 @@ const net = require('net')
 
 module.exports = function testPort(host, port) {
     const tester = net.createConnection({ port, host })
-    tester.setTimeout(1000)
+    tester.setTimeout(2000)
 
     return new Promise((resolve, reject) => {      
         tester.on('error', (err) => {
