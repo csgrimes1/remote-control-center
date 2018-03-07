@@ -6,8 +6,8 @@ function exec(cmd, ...args) {
     return new Promise((resolve, reject) => {
         childProcess.execFile(cmd, args, (err, stdout, stderr) => {
             const result = { stdout, stderr }
-            logger.log('output:', stdout)
-            logger.error('error:', stderr)
+            // logger.log('output:', stdout)
+            // logger.error('error:', stderr)
             if (err) {
                 reject(Object.assign(err, result))
             } else {
@@ -47,9 +47,9 @@ const connection = {
     },
 
     checkTime() {
-        if (process.uptime() - this.ticks > 10) {
+        if (this.devuce && process.uptime() - this.ticks > 10) {
             this.device = null
-            console.log('Disconnecting ADB')
+            logger.log('Disconnecting ADB')
             exec('adb', 'disconnect')
         }
     },

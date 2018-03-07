@@ -74,3 +74,5 @@ module.exports = async function scan(refresh = false) {
     }
     return devices
 }
+
+setInterval(() => logger.debug('Scanning...') || module.exports(true), 120000)
