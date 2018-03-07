@@ -5,6 +5,21 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
             rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            i.material-icons {
+                font-size: 36px;
+            }
+
+            div.three-col {
+                max-width: 200px;
+            }
+
+            button {
+                max-height: 42px;
+                min-height: 42px;
+                overflow: hidden;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
@@ -19,14 +34,17 @@
                     <div></div>
                     <div><button command="cursorDown"><i class="material-icons">arrow_downward</i></button></div>
                     <div></div>
-                    <div></div><div></div><div></div>
+                    <div></div><div><button style="visibility: hidden">TTTT</button></div><div></div>
                     <div><button command="return" title="Back"><i class="material-icons">reply</i></button></div>
                     <div><button command="home" title="Home"><i class="material-icons">home</i></button></div>
                     <div><button command="menu" title="Menu"><i class="material-icons">menu</i></button></div>
                     <div></div><div></div><div></div>
-                    <div><button command="rewind" title="Rewind">&lt;&lt;</button></div>
-                    <div><button command="play" title="Play">&gt; ||</button></div>
-                    <div><button command="fastForward" title="Fast Forward">&gt;&gt;</button></div>                    
+                    <div><button command="rewind" title="Rewind"><i class="material-icons">fast_rewind</i></button></div>
+                    <div><button command="play" title="Play">
+                        <i style="position: relative; left: -12px;" class="material-icons">play_arrow</i>
+                        <i style="position: relative; left: 11px; top: -36px;" class="material-icons">pause</i>
+                    </button></div>
+                    <div><button command="fastForward" title="Fast Forward"><i class="material-icons">fast_forward</i></button></div>                    
                 </div>
             </div>
         </div>

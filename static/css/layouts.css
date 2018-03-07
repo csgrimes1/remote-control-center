@@ -23,6 +23,7 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     max-width: 170px;
+    margin: auto;
 }
 
 .two-col {
@@ -32,9 +33,9 @@ button {
     display: grid;
     grid-template-columns: 1fr 1fr;
     max-width: 170px;
+    margin: auto;
 }
 
 .three-col div, .two-col div {
     text-align: center;
-    margin: auto;
 }
