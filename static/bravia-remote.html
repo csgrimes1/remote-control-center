@@ -15,17 +15,17 @@
                     <div><button command="sleep" title="Sleep"><i class="material-icons">radio_button_unchecked</i></button></div>
                 </div>
                 <div class="three-col">
-                    <div><button>1</button></div>
-                    <div><button>2</button></div>
-                    <div><button>3</button></div>
-                    <div><button>4</button></div>
-                    <div><button>5</button></div>
-                    <div><button>6</button></div>
-                    <div><button>7</button></div>
-                    <div><button>8</button></div>
-                    <div><button>9</button></div>
+                    <div><button id="Digit1">1</button></div>
+                    <div><button id="Digit2">2</button></div>
+                    <div><button id="Digit3">3</button></div>
+                    <div><button id="Digit4">4</button></div>
+                    <div><button id="Digit5">5</button></div>
+                    <div><button id="Digit6">6</button></div>
+                    <div><button id="Digit7">7</button></div>
+                    <div><button id="Digit8">8</button></div>
+                    <div><button id="Digit9">9</button></div>
                     <div></div>
-                    <div><button>0</button></div>
+                    <div><button id="Digit0">0</button></div>
                     <div></div>
                 </div>
                 <div class="three-col">
@@ -42,19 +42,19 @@
             </div>
             <div class="vertical-group">
                 <div class="three-col">
-                    <div><button command="return" title="Back"><i class="material-icons">reply</i></button></div>
+                    <div><button id="Backspace" command="return" title="Back"><i class="material-icons">reply</i></button></div>
                     <div><button command="DUX" title="discover"><i class="material-icons">lightbulb_outline</i></button></div>
-                    <div><button command="home" title="Home"><i class="material-icons">home</i></button></div>
+                    <div><button id="Home" command="home" title="Home"><i class="material-icons">home</i></button></div>
                 </div>
                 <div class="three-col">
                     <div></div>
-                    <div><button command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
+                    <div><button id="ArrowUp" command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
                     <div></div>
-                    <div><button command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
-                    <div><button command="ok"><i class="material-icons">mouse</i></button></div>
-                    <div><button command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
+                    <div><button id="ArrowLeft" command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
+                    <div><button id="Enter" command="ok"><i class="material-icons">mouse</i></button></div>
+                    <div><button id="ArrowRight" command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
                     <div></div>
-                    <div><button command="cursorDown" title="Down/menu"><i class="material-icons">arrow_downward</i></button></div>
+                    <div><button id="ArrowDown" command="cursorDown" title="Down/menu"><i class="material-icons">arrow_downward</i></button></div>
                     <div></div>
                     <div></div>
                     <div style="visibility: hidden"><button command="netflix" title="Netflix"><i class="material-icons">movie</i></button></div>
@@ -94,7 +94,7 @@
             const url = `/v1/sendButtonCommands?deviceIp=${deviceIp}&commands=${encodeURIComponent(cmd)}`
             fetch(url)
         }
-
+        
         for(let i=0; i<elements.length; i++) {
             const element = elements.item(i)
             const text = element.getAttribute('command') || element.innerText
@@ -102,4 +102,5 @@
             //console.log(text, deviceIp)
         }
     </script>
+    <script src="js/keyhandler.js"></script>
 </html>

@@ -29,17 +29,17 @@
             <div class="vertical-group">
                 <div class="three-col">
                     <div></div>
-                    <div><button command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
+                    <div><button id="ArrowUp" command="cursorUp"><i class="material-icons">arrow_upward</i></button></div>
                     <div></div>
-                    <div><button command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
-                    <div><button command="ok"><i class="material-icons">mouse</i></button></div>
-                    <div><button command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
+                    <div><button id="ArrowLeft" command="cursorLeft"><i class="material-icons">arrow_back</i></button></div>
+                    <div><button id="Enter" command="ok"><i class="material-icons">mouse</i></button></div>
+                    <div><button id="ArrowRight" command="cursorRight"><i class="material-icons">arrow_forward</i></button></div>
                     <div></div>
-                    <div><button command="cursorDown"><i class="material-icons">arrow_downward</i></button></div>
+                    <div><button id="ArrowDown" command="cursorDown"><i class="material-icons">arrow_downward</i></button></div>
                     <div></div>
                     <div></div><div><button style="visibility: hidden">TTTT</button></div><div></div>
-                    <div><button command="return" title="Back"><i class="material-icons">reply</i></button></div>
-                    <div><button command="home" title="Home"><i class="material-icons">home</i></button></div>
+                    <div><button id="Backspace" command="return" title="Back"><i class="material-icons">reply</i></button></div>
+                    <div><button id="Home" command="home" title="Home"><i class="material-icons">home</i></button></div>
                     <div><button command="menu" title="Menu"><i class="material-icons">menu</i></button></div>
                     <div></div><div></div><div></div>
                     <div><button command="rewind" title="Rewind"><i class="material-icons">fast_rewind</i></button></div>
@@ -68,4 +68,5 @@
             //console.log(text, deviceIp)
         }
     </script>
+    <script src="js/keyhandler.js"></script>
 </html>
